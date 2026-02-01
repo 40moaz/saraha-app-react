@@ -219,6 +219,9 @@
   color: #ddd;
   line-height: 1.6;
   font-size: 1rem;
+  
+  white-space: pre-wrap; /* يحافظ على الأسطر والمسافات */
+  word-wrap: break-word; /* يكسر الكلام الطويل بدل ما يكسر التصميم */
 }
 
 /* Scrollbar customization */
