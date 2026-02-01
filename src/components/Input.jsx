@@ -31,7 +31,7 @@ const Input = () => {
       );
 
       if (!res.ok) throw new Error("Failed to send message");
-      const data = await res.json();
+      await res.json(); // لو مش محتاجين القيمة
 
       // أرسل الرسالة على الإيميل
       await emailjs.send(
