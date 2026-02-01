@@ -26,7 +26,7 @@ const Input = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sender: "Anonymous", text }),
+          body: JSON.stringify({ text }),
         }
       );
 
