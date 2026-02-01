@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
+import emailjs from "emailjs-com";
 
 const Input = () => {
   const [text, setText] = useState("");
@@ -19,18 +20,30 @@ const Input = () => {
     try {
       setIsLoading(true);
 
+      // أرسل الرسالة للـ backend
       const res = await fetch(
         "https://saraha-app-node.vercel.app/api/messages",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sender: "anonymous", text }),
+          body: JSON.stringify({ sender: "Anonymous", text }),
         }
       );
 
       if (!res.ok) throw new Error("Failed to send message");
+      const data = await res.json();
 
-      await res.json();
+      // أرسل الرسالة على الإيميل
+      await emailjs.send(
+        "service_f8yt05m", // Service ID
+        "template_0pckz64", // Template ID
+        {
+          message_text: text,
+          date: new Date().toLocaleString(),
+        },
+        "VdfqC1PxEz1p8C0EX" // User ID
+      );
+
       setText("");
       setIsSend(true);
     } catch (err) {
@@ -57,7 +70,7 @@ const Input = () => {
               disabled={isLoading}
             />
             <button className="sendBtn" type="submit" disabled={isLoading}>
-              {isLoading ? "⏳ جاري الإرسال..." : <AiOutlineSend size={25} />}
+              {isLoading ? "جاري الإرسال..." : <AiOutlineSend size={25} />}
             </button>
           </>
         )}
